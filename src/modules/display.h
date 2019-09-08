@@ -1,5 +1,5 @@
 #include <TM1637Display.h>
-TM1637Display display(CLK, DIO);
+TM1637Display display(segCLK, segDIO);
 
 void showNumber(int number, bool dots){
   if(dots){
