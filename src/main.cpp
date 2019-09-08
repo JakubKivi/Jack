@@ -21,8 +21,5 @@ void setup() {
 }
 
 void loop() {
-  showFace(fun1);
-  delay(500);
-  showFace(fun2);
-  delay(500);
+  
 }
