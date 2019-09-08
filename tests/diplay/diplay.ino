@@ -18,7 +18,7 @@ bool dots=1;
 void setup()
 {
   cTime=millis();
-  
+
 }
 
 void loop()
@@ -28,14 +28,10 @@ void loop()
   if(cTime - lTime>1000){
     dots?dots=0:dots=1;
     lTime=millis();
-  }/*
+  }
   if(dots){
-    uint8_t data[] = { 0x00, 0x80, 0x00, 0x00 };
-    display.setSegments(data);
+    display.showNumberDecEx(8888, (0x80 >> 1), true); // liczba, przesuniecie bitowe(kropki na srodku, czy pokazywac zera jesli liczba nie jest 4 cyfrowa)
   }else{
-    uint8_t data[] = { 0x00, 0x00, 0x00, 0x00 };
-    display.setSegments(data);
-  }*/
-  
-  display.showNumberDec(8853);
+    display.showNumberDecEx(8888, true);
+  }
 }
