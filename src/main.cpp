@@ -15,11 +15,19 @@
 #define faceCLK 4
 #include "modules\\faceDisplay.h"
 
+//keypad modules
+#include "modules\\keypad.h"
 
 void setup() {
   faceSetup();
+  keypadBegin();
+  Serial.begin(9600);
 }
 
 void loop() {
-  
+  /*char customKey = customKeypad.getKey();
+
+  if (customKey != NO_KEY){
+    Serial.println(customKey);
+  }*/
 }
