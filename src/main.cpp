@@ -13,21 +13,36 @@
 #define faceDIN 6
 #define faceCS 5
 #define faceCLK 4
-#include "modules\\faceDisplay.h"
+unsigned long currentTime;
+unsigned long facePrevTime;
+int faceFrame=0;
+#include "modules\\\\faceDisplay\\faceDisplay.h"
 
 //keypad modules
 #include "modules\\keypad.h"
 
+//
+#include "modules\\lcdDisplay.h"
+
+
 void setup() {
-  faceSetup();
-  keypadBegin();
   Serial.begin(9600);
+  faceSetup();
+  keypadSetup();
+  lcdDisplaySetup();
+
 }
 
 void loop() {
+  currentTime=millis();
+  lcd.print("hejka");
   /*char customKey = customKeypad.getKey();
 
   if (customKey != NO_KEY){
     Serial.println(customKey);
   }*/
+
+  //showFaceFrame(bob, 300, sizeof(bob)/8);
+
+
 }
