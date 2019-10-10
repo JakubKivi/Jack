@@ -30,12 +30,17 @@ void setup() {
   faceSetup();
   keypadSetup();
   lcdDisplaySetup();
+  lcd.print("hejka");
+  lcd.clear();
 
 }
 
 void loop() {
   currentTime=millis();
-  lcd.print("hejka");
+  char customKey = customKeypad.getKey();
+  if (customKey != NO_KEY){
+    lcd.print(customKey);
+  }
   /*char customKey = customKeypad.getKey();
 
   if (customKey != NO_KEY){
