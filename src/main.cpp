@@ -22,7 +22,7 @@ int faceFrame=0;
 #include "modules/keypad.h"
 
 //
-#include "module/lcdDisplay.h"
+#include "modules/lcdDisplay.h"
 
 
 void setup() {
