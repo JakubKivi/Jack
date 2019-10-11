@@ -7,7 +7,7 @@
 // 7 segment display module
 #define segCLK 2
 #define segDIO 3
-#include "modules\\display.h"
+#include "modules/display.h"
 
 //face display module
 #define faceDIN 6
@@ -16,13 +16,13 @@
 unsigned long currentTime;
 unsigned long facePrevTime;
 int faceFrame=0;
-#include "modules\\\\faceDisplay\\faceDisplay.h"
+#include "modules/faceDisplay/faceDisplay.h"
 
 //keypad modules
-#include "modules\\keypad.h"
+#include "modules/keypad.h"
 
 //
-#include "modules\\lcdDisplay.h"
+#include "module/lcdDisplay.h"
 
 
 void setup() {
