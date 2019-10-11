@@ -12,54 +12,52 @@ const byte Karta[] = {0x97, 0x5F, 0x6D, 0x11};
 MFRC522 rfid(10, 9);
 MFRC522::MIFARE_Key key;
 
-void setup() {
-  Serial.begin(9600);
+void rfidSetup(){
   SPI.begin();
   rfid.PCD_Init();
 }
 
-void loop() {
-  if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial())
-  {
-    if (rfid.uid.uidByte[0] == Kivi[0] && 
+int rfidRead(){
+  if (rfid.uid.uidByte[0] == Kivi[0] &&
         rfid.uid.uidByte[1] == Kivi[1] &&
         rfid.uid.uidByte[2] == Kivi[2] &&
         rfid.uid.uidByte[3] == Kivi[3])
-    {
-      Serial.println("Kivi");
-    } else if (rfid.uid.uidByte[0] == Asia[0] && 
+
+      return(1);
+
+  else if (rfid.uid.uidByte[0] == Asia[0] &&
         rfid.uid.uidByte[1] == Asia[1] &&
         rfid.uid.uidByte[2] == Asia[2] &&
         rfid.uid.uidByte[3] == Asia[3])
-    {
-      Serial.println("Asia");
-    } else if (rfid.uid.uidByte[0] == Mama[0] && 
+
+    return(2);
+
+  else if (rfid.uid.uidByte[0] == Mama[0] &&
         rfid.uid.uidByte[1] == Mama[1] &&
         rfid.uid.uidByte[2] == Mama[2] &&
         rfid.uid.uidByte[3] == Mama[3])
-    {
-      Serial.println("Mama");
-    } else if (rfid.uid.uidByte[0] == Tata[0] && 
+
+    return(3);
+
+  else if (rfid.uid.uidByte[0] == Tata[0] &&
         rfid.uid.uidByte[1] == Tata[1] &&
         rfid.uid.uidByte[2] == Tata[2] &&
         rfid.uid.uidByte[3] == Tata[3])
-    {
-      Serial.println("Tata");
-    } else if (rfid.uid.uidByte[0] == Skrytka[0] && 
+  
+    return(4);
+
+  else if (rfid.uid.uidByte[0] == Skrytka[0] &&
         rfid.uid.uidByte[1] == Skrytka[1] &&
         rfid.uid.uidByte[2] == Skrytka[2] &&
         rfid.uid.uidByte[3] == Skrytka[3])
-    {
-      Serial.println("Skrytka");
-    } else if (rfid.uid.uidByte[0] == Karta[0] && 
+
+    return(5);
+
+  else if (rfid.uid.uidByte[0] == Karta[0] &&
         rfid.uid.uidByte[1] == Karta[1] &&
         rfid.uid.uidByte[2] == Karta[2] &&
         rfid.uid.uidByte[3] == Karta[3])
-    {
-      Serial.println("Karta");
-    } 
-    rfid.PICC_HaltA();
-    rfid.PCD_StopCrypto1();
-  }
-}
 
+    return(6);
+
+}

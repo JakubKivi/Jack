@@ -1,53 +1,85 @@
 #include <Arduino.h>
 
-//rfid module
-#include <SPI.h>
-#include <MFRC522.h>
+unsigned long currentTime;
 
-// 7 segment display module
-#define segCLK 2
-#define segDIO 3
+//============ 7 SEG DISPLAY========//
+#define segCLK 0
+#define segDIO 1
+unsigned long displayTime=0;
+bool dots=0;
 #include "modules/display.h"
 
-//face display module
+//============FACE DISPLAY==========//
 #define faceDIN 6
 #define faceCS 5
 #define faceCLK 4
-unsigned long currentTime;
 unsigned long facePrevTime;
 int faceFrame=0;
 #include "modules/faceDisplay/faceDisplay.h"
 
-//keypad modules
+//==========KEYPAD=================//
 #include "modules/keypad.h"
 
-//
+//==========LCD DISPLAY=============//
 #include "modules/lcdDisplay.h"
 
+//================RFID======================//
+#include "modules/key.h"
 
 void setup() {
-  Serial.begin(9600);
+  pinMode(13, OUTPUT);
   faceSetup();
   keypadSetup();
   lcdDisplaySetup();
   lcd.print("hejka");
-  lcd.clear();
+  rfidSetup();
+  //lcd.clear();
 
 }
-
 void loop() {
   currentTime=millis();
+
+  if(currentTime - displayTime>1000){
+    dots?dots=0:dots=1;
+    displayTime=millis();
+  }
+
   char customKey = customKeypad.getKey();
   if (customKey != NO_KEY){
     lcd.print(customKey);
   }
-  /*char customKey = customKeypad.getKey();
+  if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial()){
+    switch(rfidRead()){
+      case 1:
+        lcd.clear();
+        lcd.print("Kivi");
+        break;
+      case 2:
+        lcd.clear();
+        lcd.print("Asia");
+        break;
+      case 3:
+        lcd.clear();
+        lcd.print("Mama");
+        break;
+      case 4:
+        lcd.clear();
+        lcd.print("Tata");
+        break;
+      case 5:
+        lcd.clear();
+        lcd.print("Skrytka");
+        break;
+      case 6:
+        lcd.clear();
+        lcd.print("Karta");
+        break;
+    }
+    rfid.PICC_HaltA();
+    rfid.PCD_StopCrypto1();
+  }
 
-  if (customKey != NO_KEY){
-    Serial.println(customKey);
-  }*/
-
-  //showFaceFrame(bob, 300, sizeof(bob)/8);
-
+  display.setBrightness(0x0f);
+  showNumber(123);
 
 }
