@@ -1,6 +1,6 @@
 #include <LiquidCrystal_I2C.h> // dolaczenie pobranej biblioteki I2C dla LCD
 
-LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
+LiquidCrystal_I2C lcd(0x27,20,4);
 
 void lcdDisplaySetup(){
   lcd.begin(16,2);   // Inicjalizacja LCD 2x16
