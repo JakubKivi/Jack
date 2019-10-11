@@ -1,6 +1,6 @@
 #include "LedControl.h"
 
-LedControl lc=LedControl(6,4,5,2);  // Pins: DIN,CLK,CS, # of Display connected
+LedControl lc=LedControl(4,3,2,2);  // Pins: DIN,CLK,CS, # of Display connected
 
 unsigned long currentTime;
 unsigned long facePrevTime;

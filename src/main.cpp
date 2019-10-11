@@ -10,9 +10,9 @@ bool dots=0;
 #include "modules/display.h"
 
 //============FACE DISPLAY==========//
-#define faceDIN 6
-#define faceCS 5
-#define faceCLK 4
+#define faceDIN 4
+#define faceCS 2
+#define faceCLK 3
 unsigned long facePrevTime;
 int faceFrame=0;
 #include "modules/faceDisplay/faceDisplay.h"
@@ -33,6 +33,9 @@ void setup() {
   lcdDisplaySetup();
   lcd.print("hejka");
   rfidSetup();
+  display.setBrightness(0x0f);
+  showNumber(123);
+  showFace(*zgon);
   //lcd.clear();
 
 }
@@ -43,6 +46,7 @@ void loop() {
     dots?dots=0:dots=1;
     displayTime=millis();
   }
+
 
   char customKey = customKeypad.getKey();
   if (customKey != NO_KEY){
@@ -78,8 +82,5 @@ void loop() {
     rfid.PICC_HaltA();
     rfid.PCD_StopCrypto1();
   }
-
-  display.setBrightness(0x0f);
-  showNumber(123);
 
 }
