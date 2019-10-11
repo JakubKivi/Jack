@@ -10,9 +10,9 @@ bool dots=0;
 #include "modules/display.h"
 
 //============FACE DISPLAY==========//
-#define faceDIN 4
+#define faceDIN 3
 #define faceCS 2
-#define faceCLK 3
+#define faceCLK 4
 unsigned long facePrevTime;
 int faceFrame=0;
 #include "modules/faceDisplay/faceDisplay.h"
