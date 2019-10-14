@@ -1,5 +1,5 @@
 #include "DHT.h"
-#define DHT11_PIN 7
+#define DHT11_PIN 8
 DHT dht;
  
 void setup()
