@@ -1,6 +1,11 @@
 #include <Arduino.h>
 
 unsigned long currentTime;
+char code[8];
+int codeI=0;
+int systemMode=0; //0 - woke up, 1 - logged, 2 - logged off, 3 - tests
+int systemUser=0; //0 - no user, 1 - Admin , 2 - Asia      , 3 - Mama , 4 - Tata
+
 #define buzz 5
 #define motionSensor A3
 #define ironManual 5
@@ -45,6 +50,32 @@ I2C device found at address 0x3F  !
 #include <PCF8574.H>
 PCF8574 relay;
 
+int execute(char code[]){
+	int nr=0;
+	for(int i=0, i<8, i++){
+		nr=(int(code[i])-48)*pow(10, i);
+	}
+	switch(nr){
+		case(1)relay.digitalWrite(lampManual, 0);
+		break;
+		case(2)relay.digitalWrite(lampManual, 1);
+		break;
+		case(3)relay.digitalWrite(lamp, 0);
+		break;
+		case(4)relay.digitalWrite(lamp, 1);
+		break;
+		case(5)relay.digitalWrite(ironManual, 0);
+		break;
+		case(6)relay.digitalWrite(ironManual, 1);
+		break;
+		case(7)relay.digitalWrite(iron, 0);
+		break;
+		case(8)relay.digitalWrite(iron, 1);
+		break;
+	}
+}
+
+
 void setup() {
   displayTime=millis();
 
@@ -77,11 +108,7 @@ void setup() {
   relay.pinMode(lampManual, OUTPUT);
 }
 void loop() {
-  //relay.toggle(socket);
-  //relay.toggle(lamp);
-  //relay.toggle(lampManual);
-  //relay.toggle(ironManual);
-
+  
   currentTime=millis();
 
   if(currentTime - displayTime>1000){
@@ -90,61 +117,77 @@ void loop() {
   }
 
 
-
-  char customKey = customKeypad.getKey();
-  if (customKey != NO_KEY){
-    if(customKey=='*'){
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print(int(dht.getHumidity()));
-      lcd.print("%RH | ");
-      lcd.setCursor(0,1);
-      lcd.print(int(dht.getTemperature()));
-      lcd.println("*C");
-    }else   if(customKey=='#'){
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print(digitalRead(motionSensor));
-    }else   if(customKey=='9'){
-      relay.toggle(lamp);
-    }else   if(customKey=='8'){
-      relay.toggle(iron);
-    }else   if(customKey=='7'){
-      relay.toggle(socket);
-    }else{
-    lcd.print(customKey);
-    }
-  }
-
-  if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial()){
-    switch(rfidRead()){
-      case 1:
-        lcd.clear();
-        lcd.print("Kivi");
-        break;
-      case 2:
-        lcd.clear();
-        lcd.print("Asia");
-        break;
-      case 3:
-        lcd.clear();
-        lcd.print("Mama");
-        break;
-      case 4:
-        lcd.clear();
-        lcd.print("Tata");
-        break;
-      case 5:
-        lcd.clear();
-        lcd.print("Skrytka");
-        break;
-      case 6:
-        lcd.clear();
-        lcd.print("Karta");
-        break;
-    }
-    rfid.PICC_HaltA();
-    rfid.PCD_StopCrypto1();
-  }
-
+	if(systemMode==1){
+		if()
+		  char customKey = customKeypad.getKey();
+		  if (customKey != NO_KEY){
+			if(customKey=='*'){
+				lcd.clear();
+				if(!execute(&code)){
+					lcd.clear();
+					lcd.print("Invalid Code");
+				}
+			}else if(customKey=='#'){
+				code[codeI-1]=0;
+				codeI--;
+				lcd.clear();
+				for(int i=0; i<codeI; i++){
+					lcd.print(code[i]);
+				}
+			}else{
+				if(codeI<8){
+					code[codeI]=customKey;
+					codeI++;
+					lcd.print(customKey);
+				}
+			}
+	  }
+	}
+	else if(systemMode=2){
+	  if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial()){
+		switch(rfidRead()){
+		  case 1:
+			lcd.clear();
+			lcd.print("Logged as");
+			lcd.setCursor(0, 1);
+			lcd.print("Admin");
+			systemUser = 1;
+			systemMode = 1;
+			break;
+		  case 2:
+			lcd.clear();
+			lcd.print("Logged as");
+			lcd.print("Asia");
+			systemUser = 2;
+			systemMode = 1;
+			break;
+		  case 3:
+			lcd.clear();
+			lcd.print("Logged as");
+			lcd.setCursor(0, 1);
+			lcd.print("Mama");
+			systemUser = 3;
+			systemMode = 1;
+			break;
+		  case 4:
+			lcd.clear();
+			lcd.print("Logged as");
+			lcd.setCursor(0, 1);
+			lcd.print("Tata");
+			systemUser = 4;
+			systemMode = 1;
+			break;
+		  case 6:
+			lcd.clear();
+			lcd.print("Logged as");
+			lcd.setCursor(0, 1);
+			lcd.print("Admin");
+			systemUser = 1;
+			systemMode = 1;
+			break;
+		}
+		rfid.PICC_HaltA();
+		rfid.PCD_StopCrypto1();
+	  }
+	}
 }
