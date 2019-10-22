@@ -19,6 +19,7 @@ byte colPins[COLS] = {4, 5, 6}; //connect to the column pinouts of the keypad
 //initialize an instance of class NewKeypad
 Keypad_I2C customKeypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS, I2CADDR);
 
-void keypadSetup(){
+int keypadSetup(){
   customKeypad.begin( );        // GDY120705
+  return 1;
 }

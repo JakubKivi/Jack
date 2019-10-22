@@ -10,3 +10,9 @@ void showNumber(int number){
     display.showNumberDecEx(number, (0x80 >> 0), true);
   }
 }
+
+int displaySetup(){
+  display.setBrightness(0x0f);
+  showNumber(143);
+  return 1;
+}

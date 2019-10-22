@@ -12,9 +12,10 @@ const byte Karta[] = {0x97, 0x5F, 0x6D, 0x11};
 MFRC522 rfid(10, 9);
 MFRC522::MIFARE_Key key;
 
-void rfidSetup(){
+int rfidSetup(){
   SPI.begin();
   rfid.PCD_Init();
+  return 1;
 }
 
 int rfidRead(){
@@ -43,7 +44,7 @@ int rfidRead(){
         rfid.uid.uidByte[1] == Tata[1] &&
         rfid.uid.uidByte[2] == Tata[2] &&
         rfid.uid.uidByte[3] == Tata[3])
-  
+
     return(4);
 
   else if (rfid.uid.uidByte[0] == Skrytka[0] &&
