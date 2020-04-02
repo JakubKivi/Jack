@@ -9,7 +9,7 @@ const byte Skrytka[] = {0xCC, 0xFA, 0xB4, 0x63};
 
 const byte Karta[] = {0x97, 0x5F, 0x6D, 0x11};
 
-MFRC522 rfid(10, 9);
+MFRC522 rfid(47, 49);
 MFRC522::MIFARE_Key key;
 
 int rfidSetup(){

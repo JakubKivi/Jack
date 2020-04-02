@@ -1,4 +1,4 @@
-#define DHT11_PIN 8
+#define DHT11_PIN 53    //uno 8
 #include "DHT.h"
 
 DHT dht;

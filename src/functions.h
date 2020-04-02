@@ -1,5 +1,5 @@
 void error(int errorNr, bool stop, String errorM){
-  showFace(*szok);
+  currentFace=dead;
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Error: ");
@@ -19,27 +19,32 @@ void error(int errorNr, bool stop, String errorM){
   delay(3000);
 }
 
-int execute(char code[]){
-	int nr=0;
-	for(int i=0; i<8; i++){
-		nr+=(int(code[i])-48)*pow(10, i);
-	}
-	switch(nr){
-		case(1): relay.digitalWrite(lampManual, 0);
+void fallAsleep(){
+  wasInSleep=1;
+  currentFace=sleepy;
+  //lcd.noBacklight();
+}
+
+void awake(){
+  //lcd.backlight();
+  currentFace=bob;
+  wasInSleep=0;
+  lastActivity=millis();
+}
+
+int execute(int code){
+	switch(code){
+		case(1): lampON;
+    return 1;
 		break;
-		case(2): relay.digitalWrite(lampManual, 1);
+    case(2): lampOFF;
+    return 1;
 		break;
-		case(3): relay.digitalWrite(lamp, 0);
+    case(3): lampManualON;
+    return 1;
 		break;
-		case(4): relay.digitalWrite(lamp, 1);
-		break;
-		case(5): relay.digitalWrite(ironManual, 0);
-		break;
-		case(6): relay.digitalWrite(ironManual, 1);
-		break;
-		case(7): relay.digitalWrite(iron, 0);
-		break;
-		case(8): relay.digitalWrite(iron, 1);
+    case(4): lampManualOFF;
+    return 1;
 		break;
 	}
   return 0;

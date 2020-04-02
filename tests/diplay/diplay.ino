@@ -2,18 +2,17 @@
 #include <TM1637Display.h>
 
 // Module connection pins (Digital Pins)
-#define CLK 0
-#define DIO 1
+#define CLK 46
+#define DIO 44
 
 
 TM1637Display display(CLK, DIO);
-
+int cTime, lTime;
+bool dots;
 void setup()
 {
-  cTime=millis();
 
 }
-
 void loop()
 {
   display.setBrightness(0x0f);

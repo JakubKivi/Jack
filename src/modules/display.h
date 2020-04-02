@@ -13,6 +13,6 @@ void showNumber(int number){
 
 int displaySetup(){
   display.setBrightness(0x0f);
-  showNumber(143);
+  showNumber(1483);
   return 1;
 }

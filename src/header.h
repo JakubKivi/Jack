@@ -4,13 +4,16 @@
 #define NOSTOP 0
 
 unsigned long currentTime;
-char code[8];
-int codeI=0;
+unsigned long lastActivity;
+bool wasInSleep=0;
+
+float code=0;
+int codeI=1;
 String systemMode="logged off"; //logged, logged off, headadmin
 String systemUser="no user"; //0 - no user, 1 - Admin , 2 - Asia, 3 - Mama , 4 - Tata
 
-#define buzz 5
-#define motionSensor A3
+#define motionSensor 48
+
 #define ironManual 5
 #define iron 6
 #define lampManual 7
@@ -18,17 +21,17 @@ String systemUser="no user"; //0 - no user, 1 - Admin , 2 - Asia, 3 - Mama , 4 -
 #define socket 4
 
 //============ 7 SEG DISPLAY========//
-#define segCLK 6
-#define segDIO 7
+#define segCLK 46// uno 6
+#define segDIO 44//uno 7
 unsigned long displayTime=0;
 bool dots=0;
+int actualNumber=8888;
 #include "modules/display.h"
 
 //============FACE DISPLAY==========//
-#define faceDIN 3
-#define faceCS 2
-#define faceCLK 4
-byte currentFace;
+#define faceDIN 38   //uno 3  //brazowy
+#define faceCS 40   //uno 2   //czerwony        >te takie 3 razem
+#define faceCLK 42  //uno 4  //pomaranczowy   /42 40 38
 unsigned long facePrevTime;
 int faceFrame=0;
 #include "modules/faceDisplay/faceDisplay.h"

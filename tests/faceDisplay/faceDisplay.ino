@@ -1,6 +1,6 @@
 #include "LedControl.h"
 
-LedControl lc=LedControl(3,4,2,2);  // Pins: DIN,CLK,CS, # of Display connected
+LedControl lc=LedControl(38,42,40,2);  // Pins: DIN,CLK,CS, # of Display connected
 
 unsigned long currentTime;
 unsigned long facePrevTime;
@@ -23,5 +23,5 @@ void setup()
 void loop()
 {
   currentTime=millis();
-  showFaceFrame(bob, 300, sizeof(bob)/8);
+  showFaceFrame(menRun, 300, sizeof(menRun)/8);
 }

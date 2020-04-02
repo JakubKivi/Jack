@@ -13,22 +13,25 @@ void setup() {
 	if(!displaySetup())error(1, STOP, "isplaySetup() returned 0");
   if(!relaySetup())error(1, STOP, "relaySetup() returned 0");
 
-
-  currentFace=wink;
+  currentFace=bob;
   lcd.print("hejka");
+  lastActivity=millis();
 }
+
 void loop() {
 
   currentTime=millis();
-
-  if(currentTime - displayTime>1000){
-    dots?dots=0:dots=1;
-    displayTime=millis();
-  }
 
 	if(systemMode=="logged")logged();
 	else if(systemMode=="logged off")loggedOff();
   else error(2, STOP, "unknown systemMode");
 
-  showFace(*currentFace);
+  if(currentTime - displayTime>1000){
+    dots?dots=0:dots=1;
+    displayTime=millis();
+  }
+  //if(currentTime-lastActivity>10000)fallAsleep();
+
+  face(currentFace.image, currentFace.time, currentFace.size);
+
 }
