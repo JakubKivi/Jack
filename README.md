@@ -5,5 +5,6 @@ Jack is my biggest project so far. My main goal is to create my own home assista
 
 More info:
 https://jakubkivi.github.io/en#jackModal
+
 PL info:
 https://jakubkivi.github.io#jackModal
